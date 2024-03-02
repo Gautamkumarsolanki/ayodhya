@@ -4,7 +4,8 @@ const { ObjectId } = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        default: ""
     },
     userName: {
         type: String,
@@ -25,9 +26,9 @@ const userSchema = new mongoose.Schema({
     bio: {
         type: String
     },
-    followers: [{ type: ObjectId, ref: "USER", name: String, userName: String, Photo: String }],
-    following: [{ type: ObjectId, ref: "USER", name: String, userName: String, Photo: String }],
-    groups: [{ type: ObjectId, ref: "GROUP", groupName: String, Photo: String }],
+    followers: [{ type: ObjectId, ref: "USER" }],
+    following: [{ type: ObjectId, ref: "USER" }],
+    groups: [{ type: ObjectId, ref: "GROUP" }],
     userFeed: [{ type: String }]
 }, { timestamps: true });
 

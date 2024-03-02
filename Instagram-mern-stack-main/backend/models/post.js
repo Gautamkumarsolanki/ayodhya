@@ -6,10 +6,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    photo: {
+    photo: [{
         type: String,
         require: true
-    },
+    }],
     likes: [{ type: ObjectId, ref: "USER" }],
     comments: [{
         comment: { type: String },
@@ -18,9 +18,6 @@ const postSchema = new mongoose.Schema({
     postedBy: {
         type: ObjectId,
         ref: "USER"
-    },
-    caption: {
-        type: String
     },
     tags: [{ type: String }]
 }, { timestamps: true })

@@ -81,22 +81,50 @@ router.put("/uploadProfilePic", requireLogin, (req, res) => {
     })
 })
 
-router.put("edit-profile", requireLogin, (req, res) => {
+// to update bio or name
+router.put("edit-profile", requireLogin, async (req, res) => {
     try {
         const editData = {}
         if (req.body["bio"]) {
             editData["bio"] = req.body["bio"];
         }
-        if (req.body["userName"]) {
-            editData["userName"] = req.body["user"];
-        }
         if (req.body["name"]) {
             editData["name"] = req.body["name"];
         }
-        USER.findByIdAndUpdate(req.user._id, {
+        await USER.findByIdAndUpdate(req.user._id, {
             $set: {
-                bio,
+                ...editData
             }
+        });
+
+    } catch (error) {
+
+    }
+})
+
+
+// to update username
+router.put("update-username", requireLogin, async (req, res) => {
+    try {
+        const { userName } = req.body;
+        if (!userName) {
+
+        }
+        const userNameExist = await USER.findOne({ userName });
+        if (userNameExist) {
+            return res.status(200).json({
+                error: "UserName not available"
+            })
+        }
+        await USER.updateOne({ userName }, {
+            $set: {
+                userName
+            }
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Updated Successfully"
         })
 
     } catch (error) {
