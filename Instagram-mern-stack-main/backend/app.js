@@ -12,9 +12,11 @@ app.use(cors({
 }));
 require('./models/model')
 require('./models/post')
+require('./models/message')
 app.use(require("./routes/auth"))
 app.use(require("./routes/createPost"))
 app.use(require("./routes/user"))
+app.use(require("./routes/messageRoutes"))
 mongoose.connect(mongoUrl);
 
 mongoose.connection.on("connected", () => {
